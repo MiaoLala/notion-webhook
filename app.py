@@ -1,6 +1,13 @@
 from flask import Flask, request, jsonify
 import os
 import requests
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/ping")
+def ping():
+    return {"status": "alive"}
 
 app = Flask(__name__)
 
