@@ -1,19 +1,16 @@
 from flask import Flask, request, jsonify
 import os
 import requests
-from fastapi import FastAPI
-
-app = FastAPI()
-
-@app.get("/ping")
-def ping():
-    return {"status": "alive"}
 
 app = Flask(__name__)
 
 GITHUB_REPO = "MiaoLala/notion-auto-report"
 GITHUB_TOKEN = os.environ.get("GITHUB_PAT")  # Personal Access Token
 
+@app.route("/ping", methods=["GET"])
+def ping():
+    return jsonify({"status": "alive"})
+    
 @app.route("/trigger", methods=["POST"])
 def trigger_action():
     event_type = request.json.get("event_type", "notion-button")
